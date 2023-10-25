@@ -7,12 +7,12 @@ import {
   CreateTodoListCommand, UpdateTodoListCommand,
   CreateTodoItemCommand, UpdateTodoItemDetailCommand
 } from '../web-api-client';
-
 @Component({
   selector: 'app-todo-component',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
+
 export class TodoComponent implements OnInit {
   debug = false;
   deleting = false;
@@ -32,7 +32,8 @@ export class TodoComponent implements OnInit {
     id: [null],
     listId: [null],
     priority: [''],
-    note: ['']
+    note: [''],
+    color: ['']
   });
 
 
@@ -43,6 +44,7 @@ export class TodoComponent implements OnInit {
     private fb: FormBuilder
   ) { }
 
+  
   ngOnInit(): void {
     this.listsClient.get().subscribe(
       result => {
@@ -136,18 +138,27 @@ export class TodoComponent implements OnInit {
   }
 
   // Items
+
+  //Colors
+  setSelectedItemColor(color: string): void {
+    this.itemDetailsFormGroup.get('color').setValue(color);
+
+  }
+
+
   showItemDetailsModal(template: TemplateRef<any>, item: TodoItemDto): void {
     this.selectedItem = item;
     this.itemDetailsFormGroup.patchValue(this.selectedItem);
 
     this.itemDetailsModalRef = this.modalService.show(template);
     this.itemDetailsModalRef.onHidden.subscribe(() => {
-        this.stopDeleteCountDown();
+      this.stopDeleteCountDown();
     });
   }
 
   updateItemDetails(): void {
     const item = new UpdateTodoItemDetailCommand(this.itemDetailsFormGroup.value);
+   
     this.itemsClient.updateItemDetails(this.selectedItem.id, item).subscribe(
       () => {
         if (this.selectedItem.listId !== item.listId) {
@@ -160,22 +171,24 @@ export class TodoComponent implements OnInit {
           this.selectedItem.listId = item.listId;
           this.lists[listIndex].items.push(this.selectedItem);
         }
-
         this.selectedItem.priority = item.priority;
         this.selectedItem.note = item.note;
+        this.selectedItem.color = item.color;
         this.itemDetailsModalRef.hide();
         this.itemDetailsFormGroup.reset();
+        
       },
       error => console.error(error)
     );
   }
-
+  
   addItem() {
     const item = {
       id: 0,
       listId: this.selectedList.id,
       priority: this.priorityLevels[0].value,
       title: '',
+      color: '',
       done: false
     } as TodoItemDto;
 
@@ -196,7 +209,6 @@ export class TodoComponent implements OnInit {
       this.deleteItem(item);
       return;
     }
-
     if (item.id === 0) {
       this.itemsClient
         .create({
@@ -205,12 +217,16 @@ export class TodoComponent implements OnInit {
         .subscribe(
           result => {
             item.id = result;
+
           },
           error => console.error(error)
         );
     } else {
       this.itemsClient.update(item.id, item).subscribe(
-        () => console.log('Update succeeded.'),
+        () => {
+
+          console.log('Update succeeded.')
+        },
         error => console.error(error)
       );
     }
@@ -221,7 +237,7 @@ export class TodoComponent implements OnInit {
       setTimeout(() => this.addItem(), 250);
     }
   }
-
+  
   deleteItem(item: TodoItemDto, countDown?: boolean) {
     if (countDown) {
       if (this.deleting) {
