@@ -36,3 +36,39 @@
 .modal-footer {
   display: block;
 }
+.color-circles-container {
+  display: flex;
+  text-align: center;
+}
+.color-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-top: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid #000;
+  display: inline-block;
+}
+
+.lightblue {
+    background-color: lightblue;
+}
+.lightgreen {
+  background-color: lightgreen;
+}
+.white {
+  background-color: white;
+}
+.lightcoral {
+  background-color: lightcoral;
+}
+.lightpink {
+  background-color: lightpink;
+}
+.selected {
+  border: 2px solid lightblue; /* Modify the border thickness as needed */
+  outline: 2px solid lightblue; /* Modify the outline thickness as needed */
+  /* Add any other styles for the selected state */
+}
