@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Todo_App.Application.Common.Interfaces;
 using Todo_App.Domain.Enums;
 
+
 namespace Todo_App.Application.TodoLists.Queries.GetTodos;
 
 public record GetTodosQuery : IRequest<TodosVm>;

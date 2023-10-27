@@ -9,6 +9,27 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="TodoItems\Queries\NewFolder\**" />
+      <Compile Remove="TodoItemTags\Commands\NewFolder\**" />
+      <Compile Remove="TodoItemTags\NewFolder1\**" />
+      <Compile Remove="TodoItemTags\NewFolder2\**" />
+      <Compile Remove="TodoItemTags\NewFolder3\**" />
+      <Compile Remove="TodoItemTags\NewFolder\**" />
+      <EmbeddedResource Remove="TodoItems\Queries\NewFolder\**" />
+      <EmbeddedResource Remove="TodoItemTags\Commands\NewFolder\**" />
+      <EmbeddedResource Remove="TodoItemTags\NewFolder1\**" />
+      <EmbeddedResource Remove="TodoItemTags\NewFolder2\**" />
+      <EmbeddedResource Remove="TodoItemTags\NewFolder3\**" />
+      <EmbeddedResource Remove="TodoItemTags\NewFolder\**" />
+      <None Remove="TodoItems\Queries\NewFolder\**" />
+      <None Remove="TodoItemTags\Commands\NewFolder\**" />
+      <None Remove="TodoItemTags\NewFolder1\**" />
+      <None Remove="TodoItemTags\NewFolder2\**" />
+      <None Remove="TodoItemTags\NewFolder3\**" />
+      <None Remove="TodoItemTags\NewFolder\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />

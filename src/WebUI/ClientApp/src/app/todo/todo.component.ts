@@ -2,10 +2,10 @@ import { Component, TemplateRef, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {
-  TodoListsClient, TodoItemsClient,
+  TodoListsClient, TodoItemsClient,TagClient,
   TodoListDto, TodoItemDto, PriorityLevelDto,
   CreateTodoListCommand, UpdateTodoListCommand,
-  CreateTodoItemCommand, UpdateTodoItemDetailCommand
+  CreateTodoItemCommand, UpdateTodoItemDetailCommand, CreateTagCommand
 } from '../web-api-client';
 @Component({
   selector: 'app-todo-component',
@@ -14,6 +14,11 @@ import {
 })
 
 export class TodoComponent implements OnInit {
+  //tagIds: number[] = [];
+  //selectedTags: string[] = [];
+  //newTag: string = ''; // Property to store the new tag
+  //tags: string[] = [];
+  //selectedTags: string[] = [];
   debug = false;
   deleting = false;
   deleteCountDown = 0;
@@ -40,6 +45,7 @@ export class TodoComponent implements OnInit {
   constructor(
     private listsClient: TodoListsClient,
     private itemsClient: TodoItemsClient,
+    private tagsClient: TagClient,
     private modalService: BsModalService,
     private fb: FormBuilder
   ) { }
@@ -57,7 +63,39 @@ export class TodoComponent implements OnInit {
       error => console.error(error)
     );
   }
+  //Tags
+ // addTag() {
+    //if (this.newTag) {
+     // this.tags.push(this.newTag);
+    //  this.newTag = '';
+   // }
+ // }
+  //createTag() {
+  //  const createTagCommand = new CreateTagCommand();
+  //  createTagCommand.name = this.newTag;
 
+  //  this.tagsClient.create(createTagCommand).subscribe(
+  //    (result) => {
+  //      console.log('Tag created successfully:', result);
+  //      this.tagIds.push(result);
+  //    },
+  //    (error) => {
+  //      console.error('Error creating tag:', error);
+  //    }
+  //  );
+  //}
+  //getTagIdByName(tagName: string): number | undefined {
+  //  const tagIndex = this.tags.indexOf(tagName);
+  //  if (tagIndex !== -1) {
+  //    // Implement logic to fetch the corresponding tag ID from your data.
+  //    // For example, assuming you have an array of tag IDs.
+  //    const tagId = this.tagIds[tagIndex];
+  //    return tagId;
+  //  }
+  //  return undefined;
+  //}
+  
+  
   // Lists
   remainingItems(list: TodoListDto): number {
     return list.items.filter(t => !t.done).length;
@@ -204,7 +242,6 @@ export class TodoComponent implements OnInit {
 
   updateItem(item: TodoItemDto, pressedEnter: boolean = false): void {
     const isNewItem = item.id === 0;
-
     if (!item.title.trim()) {
       this.deleteItem(item);
       return;

@@ -129,6 +129,18 @@
         <label for="note">Note</label>
         <textarea id="note" class="form-control" rows="3" formControlName="note"></textarea>
       </div>
+      <!--<div class="form-group">
+        <label for="tags">Tags</label>
+        <input type="text" class="form-control" id="tags" placeholder="Add tags..." [(ngModel)]="newTag" />
+        <button class="btn btn-default" (click)="addTag()">Add Tag</button>
+      </div>
+
+      <div class="form-group">
+        <label for="selectedItemTags">Tags for Selected Item:</label>
+        <ul>
+          <li *ngFor="let tag of selectedItem.tags">{{ tag }}</li>
+        </ul>
+      </div>-->
       <div class="form-group">
         <div class="color-circle white" (click)="setSelectedItemColor('white')"></div>
         <div class="color-circle lightblue" (click)="setSelectedItemColor('lightblue')"></div>
