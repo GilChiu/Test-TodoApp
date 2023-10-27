@@ -3,7 +3,6 @@ using Todo_App.Application.Common.Models;
 using Todo_App.Application.TodoItems.Commands.CreateTodoItem;
 using Todo_App.Application.TodoItems.Commands.DeleteTodoItem;
 using Todo_App.Application.TodoItems.Commands.UpdateTodoItem;
-using Todo_App.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using Todo_App.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
 namespace Todo_App.WebUI.Controllers;
