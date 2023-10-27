@@ -1009,6 +1009,7 @@ export class TodoListDto implements ITodoListDto {
     title?: string | undefined;
     colour?: string | undefined;
     items?: TodoItemDto[];
+    isListDeleted?: boolean;
 
     constructor(data?: ITodoListDto) {
         if (data) {
@@ -1029,6 +1030,7 @@ export class TodoListDto implements ITodoListDto {
                 for (let item of _data["items"])
                     this.items!.push(TodoItemDto.fromJS(item));
             }
+            this.isListDeleted = _data["isListDeleted"];
         }
     }
 
@@ -1049,6 +1051,7 @@ export class TodoListDto implements ITodoListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
+        data["isListDeleted"] = this.isListDeleted;
         return data;
     }
 }
@@ -1058,6 +1061,7 @@ export interface ITodoListDto {
     title?: string | undefined;
     colour?: string | undefined;
     items?: TodoItemDto[];
+    isListDeleted?: boolean;
 }
 
 export class TodoItemDto implements ITodoItemDto {
@@ -1068,6 +1072,7 @@ export class TodoItemDto implements ITodoItemDto {
     priority?: number;
     note?: string | undefined;
     color?: string | undefined;
+    isItemDeleted?: boolean;
 
     constructor(data?: ITodoItemDto) {
         if (data) {
@@ -1087,6 +1092,7 @@ export class TodoItemDto implements ITodoItemDto {
             this.priority = _data["priority"];
             this.note = _data["note"];
             this.color = _data["color"];
+            this.isItemDeleted = _data["isItemDeleted"];
         }
     }
 
@@ -1106,6 +1112,7 @@ export class TodoItemDto implements ITodoItemDto {
         data["priority"] = this.priority;
         data["note"] = this.note;
         data["color"] = this.color;
+        data["isItemDeleted"] = this.isItemDeleted;
         return data;
     }
 }
@@ -1118,6 +1125,7 @@ export interface ITodoItemDto {
     priority?: number;
     note?: string | undefined;
     color?: string | undefined;
+    isItemDeleted?: boolean;
 }
 
 export class CreateTodoListCommand implements ICreateTodoListCommand {

@@ -51,7 +51,10 @@ export class TodoComponent implements OnInit {
   ngOnInit(): void {
     this.listsClient.get().subscribe(
       result => {
-        this.lists = result.lists;
+        this.lists = result.lists.filter((list) => !list.isListDeleted);
+        this.lists.forEach((list) => {
+          list.items = list.items.filter((item) => !item.isItemDeleted);
+        });
         this.priorityLevels = result.priorityLevels;
         if (this.lists.length) {
           this.selectedList = this.lists[0];
@@ -71,7 +74,9 @@ export class TodoComponent implements OnInit {
     this.splitNotes = this.splitNotes.map((note) => note.trim()); // Trim each note
   }
   filterItems() {
-    return this.selectedList.items.filter((item) =>
+    return this.selectedList.items
+      .filter((item) => !item.isItemDeleted)
+      .filter((item) =>
       this.selectedTags.every((tag) =>
         item.note.toLowerCase().includes(tag.toLowerCase())
       )
