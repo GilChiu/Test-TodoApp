@@ -566,6 +566,9 @@
             "items": {
               "$ref": "#/components/schemas/TodoItemDto"
             }
+          },
+          "isListDeleted": {
+            "type": "boolean"
           }
         }
       },
@@ -599,6 +602,9 @@
           "color": {
             "type": "string",
             "nullable": true
+          },
+          "isItemDeleted": {
+            "type": "boolean"
           }
         }
       },
