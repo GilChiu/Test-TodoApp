@@ -14,6 +14,9 @@ import {
 })
 
 export class TodoComponent implements OnInit {
+  selectedTags: string[] = [];
+  splitNotes: string[] = [];
+  searchNote: string = '';
   debug = false;
   deleting = false;
   deleteCountDown = 0;
@@ -58,6 +61,26 @@ export class TodoComponent implements OnInit {
     );
   }
 
+  //Tags
+  selectItem(item: TodoItemDto): void {
+    this.selectedItem = item;
+    this.splitAndFilterNotes(item);
+  }
+  splitAndFilterNotes(item: TodoItemDto): void {
+    this.splitNotes = item.note.split('\n'); // Split notes by newline
+    this.splitNotes = this.splitNotes.map((note) => note.trim()); // Trim each note
+  }
+  filterItems() {
+    return this.selectedList.items.filter((item) =>
+      this.selectedTags.every((tag) =>
+        item.note.toLowerCase().includes(tag.toLowerCase())
+      )
+    );
+  }
+  onSearchNoteChange() {
+  this.selectedTags = this.searchNote.split(',').map((tag) => tag.trim());
+}
+  
   // Lists
   remainingItems(list: TodoListDto): number {
     return list.items.filter(t => !t.done).length;
@@ -188,6 +211,7 @@ export class TodoComponent implements OnInit {
       listId: this.selectedList.id,
       priority: this.priorityLevels[0].value,
       title: '',
+      note: '', 
       color: '',
       done: false
     } as TodoItemDto;
